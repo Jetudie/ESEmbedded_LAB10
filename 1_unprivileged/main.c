@@ -12,7 +12,7 @@ int main(void)
 	extern uint32_t _msp_init;
 
 	uint32_t *msp_init = &_msp_init;
-	uint32_t *psp_init = msp_init - 8 * 1024;
+	uint32_t *psp_init = msp_init - 8 * 1024; // reserve 8 * 1024 Bytes(8kB) memory to main stack pointer
 
 	init_usart1();
 
@@ -26,7 +26,7 @@ int main(void)
 	printf("[Kernel] Switch to unprivileged thread mode & start user task (psp_init = 0x%x).\r\n\n", (unsigned int)psp_init);
 
 	//start user task
-	??????
+	start_user((uint32_t*)user_task, psp_init);
 
 	while (1) //should not go here
 		;
